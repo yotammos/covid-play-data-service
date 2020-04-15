@@ -1,0 +1,84 @@
+@(latestCovidData: Array[FormattedLatestCovidData], region: String)
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Latest COVID-19 Data</title>
+    </head>
+    <style>
+            #countries {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #countries td, #countries th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                width: 25% ;
+            }
+
+            #countries tr:nth-child(even){background-color: #f2f2f2;}
+
+            #countries tr:hover {background-color: #ddd;}
+
+            #countries th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            a {
+                outline: none;
+                text-decoration: none;
+                padding: 2px 1px 0;
+            }
+
+            a:link {
+                color: #265301;
+            }
+
+            a:visited {
+                color: #437A16;
+            }
+
+            a:focus {
+                border-bottom: 1px solid;
+                background: #BAE498;
+            }
+
+            a:hover {
+                border-bottom: 1px solid;
+                background: #CDFEAA;
+            }
+
+            a:active {
+                background: #265301;
+                color: #CDFEAA;
+            }
+    </style>
+    <body>
+        <h1>Latest COVID-19 Data</h1>
+
+        <table id="countries">
+            <tr>
+                <th>@region</th>
+                <th>Cases</th>
+                <th>Deaths</th>
+            </tr>
+            @for(data <- latestCovidData) {
+                <tr>
+                    @if(Country.availableCountries.contains(Country.nameToCountry(data.name))) {
+                        <td><a href="/country/@data.name">@data.name</a></td>
+                    } else {
+                        <td>@data.name</td>
+                    }
+                    <td>@data.cases (+@data.dailyCases)</td>
+                    <td>@data.deaths (+@data.dailyDeaths)</td>
+                </tr>
+            }
+        </table>
+    </body>
+</html>

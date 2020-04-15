@@ -1,0 +1,51 @@
+@(latestCountryData: DatedFormattedCovidData)
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Latest COVID-19 Data</title>
+</head>
+<style>
+    #countries {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #countries td, #countries th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      width: 25% ;
+    }
+
+    #countries tr:nth-child(even){background-color: #f2f2f2;}
+
+    #countries tr:hover {background-color: #ddd;}
+
+    #countries th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+</style>
+<body>
+    <h1>COVID-19 Data for @latestCountryData.date</h1>
+
+    <table id="countries">
+        <tr>
+            <th>Cases</th>
+            <th>Deaths</th>
+            <th>Country</th>
+        </tr>
+        @for(countryData <- latestCountryData.data) {
+            <tr>
+                <td>@countryData.cases</td>
+                <td>@countryData.deaths</td>
+                <td>@countryData.country</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
